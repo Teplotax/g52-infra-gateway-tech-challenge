@@ -1,5 +1,5 @@
 environment = "dev"
-api_name   = "api-template-v1"
+api_name   = "api-tech-challenge-v1"
 vpc_id = "vpc-05f6d4d40bf2a3f50"
 destroy = false
 
