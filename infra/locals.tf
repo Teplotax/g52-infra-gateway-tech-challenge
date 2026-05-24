@@ -10,9 +10,8 @@ locals {
     project     = local.project
   }
 
-  gateway_tags = merge(local.common_tags,
-    {
+  gateway_tags = {
       resource = "api-gateway"
       service  = var.api_name
-    })
+    }
 }
