@@ -36,7 +36,7 @@ jobs:
       - name: Configure AWS (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::403339561517:role/github-actions-terraform-dev
+          role-to-assume: arn:aws:iam::721093132867:role/github-actions-terraform-dev
           aws-region: sa-east-1
 
       - name: Extract API name from tfvars
