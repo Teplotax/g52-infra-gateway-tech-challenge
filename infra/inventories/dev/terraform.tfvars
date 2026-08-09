@@ -1,7 +1,7 @@
 environment = "dev"
 api_name   = "api-tech-challenge-v1"
 vpc_id = "vpc-070d1017834697b0d"
-destroy = false
+destroy = true
 
 #API Gateway
 throttle_burst_limit = 500
