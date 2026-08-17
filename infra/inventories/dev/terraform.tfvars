@@ -1,7 +1,7 @@
 environment = "dev"
 api_name   = "api-g52-tech-challenge-v1"
 vpc_id = "vpc-04055fee4b29e6c48"
-destroy = true
+destroy = false
 
 #API Gateway
 throttle_burst_limit = 500
