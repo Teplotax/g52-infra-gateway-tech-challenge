@@ -44,7 +44,7 @@ infra/
 | `throttle_rate_limit` | number | Limite de taxa de requisições por segundo (default: `100`) |
 | `quota_limit` | number | Quota mensal de requisições (default: `1000000`) |
 | `log_retention_days` | number | Retenção de logs em dias (default: `1`) |
-| `aws_region` | string | Região AWS (default: `sa-east-1`) |
+| `aws_region` | string | Região AWS (default: `us-east-1`) |
 | `destroy` | bool | Se `true`, o pipeline executa `terraform destroy` |
 
 ## Outputs
