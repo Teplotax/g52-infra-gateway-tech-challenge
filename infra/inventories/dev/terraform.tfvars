@@ -1,6 +1,6 @@
 environment = "dev"
 api_name   = "api-g52-tech-challenge-v1"
-vpc_id = "vpc-04055fee4b29e6c48"
+vpc_id = "vpc-0c0fcb0a0221f6d85"
 destroy = false
 
 #API Gateway
