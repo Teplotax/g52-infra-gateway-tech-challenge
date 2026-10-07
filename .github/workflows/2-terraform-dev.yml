@@ -1,8 +1,7 @@
 name: "2 - [DEV] Build and Deploy"
 
+# só roda no merge em develop; o PR (aberto pelo workflow 1) não dispara nada
 on:
-  pull_request:
-    branches: [develop]
   push:
     branches: [develop]
   workflow_dispatch:
@@ -64,12 +63,6 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
-
-      - name: Terraform Plan
-        if: github.event_name == 'pull_request'
-        run: |
-          terraform plan \
-            -var-file=inventories/dev/terraform.tfvars
 
       - name: Terraform Destroy
         if: steps.flags.outputs.DESTROY == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
