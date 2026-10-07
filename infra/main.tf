@@ -47,3 +47,31 @@ data "aws_vpc" "this" {
   id = var.vpc_id
 }
 
+
+# role de log do api gateway é config da conta, vale pros 3 stages (dev/hom/prod);
+# fica aqui porque esse repo não é destruído junto com os ambientes
+resource "aws_iam_role" "apigw_cloudwatch" {
+  name = "role-apigateway-cloudwatch"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { Service = "apigateway.amazonaws.com" }
+      Action    = "sts:AssumeRole"
+    }]
+  })
+
+  tags = local.gateway_tags
+}
+
+resource "aws_iam_role_policy_attachment" "apigw_cloudwatch" {
+  role       = aws_iam_role.apigw_cloudwatch.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+}
+
+resource "aws_api_gateway_account" "this" {
+  cloudwatch_role_arn = aws_iam_role.apigw_cloudwatch.arn
+
+  depends_on = [aws_iam_role_policy_attachment.apigw_cloudwatch]
+}
