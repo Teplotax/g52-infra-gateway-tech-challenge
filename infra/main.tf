@@ -9,6 +9,11 @@ resource "aws_api_gateway_rest_api" "this" {
   }
 
   tags = local.gateway_tags
+
+  # o import do contrato (g52-api-tech-challenge-v1-ext) troca a descrição pela do openapi
+  lifecycle {
+    ignore_changes = [description]
+  }
 }
 
 # ── Optional: API Key + Usage Plan ────────────────────────────
