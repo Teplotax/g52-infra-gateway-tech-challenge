@@ -8,3 +8,7 @@ output "api_key" {
   value       = var.require_api_key ? aws_api_gateway_api_key.this[0].value : ""
   sensitive   = true
 }
+# colar no new relic: Infrastructure > AWS > Add account > API Polling
+output "newrelic_integration_role_arn" {
+  value = length(aws_iam_role.newrelic_integration) > 0 ? aws_iam_role.newrelic_integration[0].arn : null
+}
