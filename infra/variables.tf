@@ -49,3 +49,8 @@ variable "destroy" {
   type    = bool
   default = false
 }
+# id da conta no new relic; vazio = não cria a role da integração aws
+variable "newrelic_account_id" {
+  type    = string
+  default = ""
+}
