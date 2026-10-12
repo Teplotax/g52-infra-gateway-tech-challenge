@@ -80,3 +80,28 @@ resource "aws_api_gateway_account" "this" {
 
   depends_on = [aws_iam_role_policy_attachment.apigw_cloudwatch]
 }
+
+# integração aws do new relic (api polling do cloudwatch): lambda, api gateway e rds sem agente.
+# a lambda roda na vpc sem nat, então a extension do new relic não conseguiria mandar dado
+resource "aws_iam_role" "newrelic_integration" {
+  count = var.newrelic_account_id != "" ? 1 : 0
+  name  = "newrelic-aws-integration"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { AWS = "arn:aws:iam::754728514883:root" } # conta aws do new relic
+      Action    = "sts:AssumeRole"
+      Condition = { StringEquals = { "sts:ExternalId" = var.newrelic_account_id } }
+    }]
+  })
+
+  tags = local.gateway_tags
+}
+
+resource "aws_iam_role_policy_attachment" "newrelic_integration" {
+  count      = var.newrelic_account_id != "" ? 1 : 0
+  role       = aws_iam_role.newrelic_integration[0].name
+  policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+}
